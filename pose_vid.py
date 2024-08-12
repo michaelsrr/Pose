@@ -5,6 +5,8 @@ mp_drawing = mp.solutions.drawing_utils
 mp_pose = mp.solutions.pose
 
 cap = cv2.VideoCapture("video_0001.mp4")
+#cap = cv2.VideoCapture('http://192.168.1.7:4747/video')
+
 
 with mp_pose.Pose(
     static_image_mode=False) as pose:

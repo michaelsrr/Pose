@@ -6,6 +6,8 @@ mp_drawing = mp.solutions.drawing_utils
 mp_holistic = mp.solutions.holistic
 
 cap = cv2.VideoCapture('http://192.168.1.7:4747/video')
+#cap = cv2.VideoCapture("video_0001.mp4")
+
 
 def calculate_angle(point1, point2):
     return np.arctan2(point2.y - point1.y, point2.x - point1.x) * 180 / np.pi
