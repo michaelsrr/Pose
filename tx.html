@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Captura de Voz y Reconocimiento de Texto</title>
+</head>
+<body>
+    <h1>Captura de Voz y Reconocimiento de Texto</h1>
+    <button id="start-button">Iniciar Captura de Voz</button>
+    <p id="result-text">Texto capturado aparecerá aquí...</p>
+
+    <script>
+        // Verifica si la API de reconocimiento de voz es compatible con el navegador
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (!SpeechRecognition) {
+            alert("Tu navegador no soporta la API de reconocimiento de voz. Por favor usa un navegador compatible como Chrome.");
+        } else {
+            const recognition = new SpeechRecognition();
+            const startButton = document.getElementById('start-button');
+            const resultText = document.getElementById('result-text');
+
+            // Configuración de la API de reconocimiento de voz
+            recognition.lang = 'es-ES'; // Idioma español
+            recognition.interimResults = false; // Resultados intermedios desactivados
+            recognition.maxAlternatives = 1; // Número máximo de alternativas
+
+            // Inicia el reconocimiento de voz
+            startButton.addEventListener('click', () => {
+                recognition.start();
+                resultText.textContent = "Escuchando...";
+            });
+
+            // Procesa el resultado del reconocimiento de voz
+            recognition.addEventListener('result', (event) => {
+                const transcript = event.results[0][0].transcript;
+                resultText.textContent = "Texto reconocido: " + transcript;
+            });
+
+            // Maneja los errores
+            recognition.addEventListener('error', (event) => {
+                resultText.textContent = "Ocurrió un error: " + event.error;
+            });
+
+            // Indica cuando el reconocimiento se detiene
+            recognition.addEventListener('end', () => {
+                recognition.stop();
+            });
+        }
+    </script>
+</body>
+</html>
